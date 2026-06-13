@@ -3,10 +3,11 @@ import 'package:go_router/go_router.dart';
 import 'package:mobile/_import.dart';
 
 final class Routes {
-  static const String home = '/';
+  static const String verification = '/verification';
   static const String onboarding = '/onboarding';
   static const String register = '/register';
   static const String login = '/login';
+  static const String home = '/';
 }
 
 final GoRouter router = GoRouter(
@@ -38,6 +39,12 @@ final GoRouter router = GoRouter(
       path: Routes.register,
       builder: (BuildContext context, GoRouterState state) {
         return const RegisterScreen();
+      },
+    ),
+    GoRoute(
+      path: Routes.verification,
+      builder: (BuildContext context, GoRouterState state) {
+        return const VerificationScreen();
       },
     )
   ],
