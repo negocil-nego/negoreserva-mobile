@@ -3,6 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:mobile/_import.dart';
 
 final class Routes {
+  static const String forgetPassword = '/forget-password';
+  static const String resetPassword = '/reset-password';
   static const String verification = '/verification';
   static const String onboarding = '/onboarding';
   static const String register = '/register';
@@ -45,6 +47,18 @@ final GoRouter router = GoRouter(
       path: Routes.verification,
       builder: (BuildContext context, GoRouterState state) {
         return const VerificationScreen();
+      },
+    ),
+    GoRoute(
+      path: Routes.resetPassword,
+      builder: (BuildContext context, GoRouterState state) {
+        return const ResetPasswordScreen();
+      },
+    ),
+    GoRoute(
+      path: Routes.forgetPassword,
+      builder: (BuildContext context, GoRouterState state) {
+        return const ForgotPasswordScreen();
       },
     )
   ],

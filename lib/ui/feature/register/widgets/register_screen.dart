@@ -21,36 +21,33 @@ class _RegisterScreenState extends State<RegisterScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 32),
-              // Illustration
               Center(
                 child: AuthIllustration(icon: Icons.phone_android_outlined),
               ),
               const SizedBox(height: 28),
-              // Title
               const Text("Vamos começar", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.text)),
               const SizedBox(height: 6),
               const Text('crie uma conta para acessar todos os recursos', style: TextStyle(fontSize: 13, color: AppColors.textSecondary)),
               const SizedBox(height: 28),
-              // Fields
               const AuthTextField(
-                hint: 'digite seu nome completo',
+                hint: 'Digite seu nome completo',
                 prefixIcon: Icons.person_outline,
               ),
               const SizedBox(height: 14),
               const AuthTextField(
-                hint: 'digite seu e-mail',
+                hint: 'Digite seu e-mail',
                 prefixIcon: Icons.email_outlined,
                 keyboardType: TextInputType.emailAddress,
               ),
               const SizedBox(height: 14),
               const AuthTextField(
-                hint: 'senha',
+                hint: 'Senha',
                 prefixIcon: Icons.lock_outline,
                 isPassword: true,
               ),
               const SizedBox(height: 14),
               const AuthTextField(
-                hint: 'confirme sua senha',
+                hint: 'Confirme sua senha',
                 prefixIcon: Icons.lock_outline,
                 isPassword: true,
               ),
@@ -64,7 +61,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
               const SizedBox(height: 20),
               GoogleSignInButton(onPressed: () {}),
               const SizedBox(height: 24),
-              // Bottom link
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

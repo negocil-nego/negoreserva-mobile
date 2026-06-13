@@ -21,22 +21,20 @@ class _LoginScreenState extends State<LoginScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 32),
-              Center(
-                child: AuthIllustration(icon: Icons.shield_outlined),
-              ),
+              Center(child: AuthIllustration(icon: Icons.shield_outlined),),
               const SizedBox(height: 28),
               const Text('Bem-vindo de volta!', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.text)),
               const SizedBox(height: 6),
               const Text("Faça login para continuar explorando", style: TextStyle(fontSize: 13, color: AppColors.textSecondary)),
               const SizedBox(height: 28),
               const AuthTextField(
-                hint: 'digite seu e-mail',
+                hint: 'Digite seu e-mail',
                 prefixIcon: Icons.email_outlined,
                 keyboardType: TextInputType.emailAddress,
               ),
               const SizedBox(height: 14),
               const AuthTextField(
-                hint: 'senha',
+                hint: 'Senha',
                 prefixIcon: Icons.lock_outline,
                 isPassword: true,
               ),
@@ -44,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
               Align(
                 alignment: Alignment.centerRight,
                 child: GestureDetector(
-                  onTap: () {},
+                  onTap: () => context.go(Routes.forgetPassword),
                   child: const Text(
                     'Esqueceu a senha?',
                     style: TextStyle(fontSize: 13, color: AppColors.textSecondary),
@@ -71,7 +69,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ],
               ),
-              const SizedBox(height: 32),
+              const SizedBox(height: 20),
+              GestureDetector(
+                onTap: () => context.go(Routes.home),
+                child: const Text('Continuar sem conta', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: AppColors.primary)),
+              ),
             ],
           ),
         ),
