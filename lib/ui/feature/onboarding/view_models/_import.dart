@@ -1,0 +1,1 @@
+export 'onboarding_screen_view_model.dart';
