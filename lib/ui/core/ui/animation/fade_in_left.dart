@@ -3,9 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 
 class FadeInLeft extends StatelessWidget {
   final Widget child;
-
   const FadeInLeft({super.key, required this.child});
-
   @override
   Widget build(BuildContext context) {
     return child

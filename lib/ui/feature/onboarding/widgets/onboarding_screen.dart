@@ -7,11 +7,14 @@ class OnboardingScreen extends StatefulWidget {
   State<OnboardingScreen> createState() => _OnboardingScreenState();
 }
 
-class _OnboardingScreenState extends State<OnboardingScreen> with TickerProviderStateMixin {
+class _OnboardingScreenState extends State<OnboardingScreen>
+    with TickerProviderStateMixin {
   List<OnboardingItem> _pages = [];
 
+  late final PageController _pageController;
+
   late final AnimationController _controller = AnimationController(
-    duration: const Duration(milliseconds: 20),
+    duration: const Duration(seconds: 20),
     vsync: this,
   )..repeat(reverse: true);
 
@@ -23,7 +26,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
   @override
   void initState() {
     super.initState();
-    if (mounted) _pages = OnboardingRepo.getData();
+    _pages = OnboardingRepo.getData();
+    _pageController = PageController();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -31,7 +42,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
     return Scaffold(
       body: PageView.builder(
         itemCount: _pages.length,
-        controller: PageController(viewportFraction: 1.0),
+        controller: _pageController,
         onPageChanged: (index) {
           _controller.value = 0.0;
           _controller.forward();
@@ -40,57 +51,54 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
           final OnboardingItem item = _pages[index];
           return Stack(
             children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width,
+              Positioned.fill(
                 child: ScaleTransition(
                   scale: _animation,
-                  child: Image.asset(item.image, fit: BoxFit.cover),
+                  child: Image.asset(item.image, fit: BoxFit.fill),
                 ),
               ),
               Positioned(
                 bottom: 0,
+                left: 0,
+                right: 0,
                 child: Container(
-                  padding: EdgeInsets.all(20),
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.5,
+                  padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      begin: Alignment.bottomRight,
+                      begin: Alignment.bottomCenter,
+                      end: Alignment.topCenter,
                       colors: [
                         Colors.black.withValues(alpha: 0.9),
-                        Colors.black.withValues(alpha: 0.8),
                         Colors.black.withValues(alpha: 0.2),
-                        Colors.black.withValues(alpha: 0.1),
                       ],
                     ),
                   ),
                   child: Column(
                     children: [
                       FadeInDown(
-                        duration: Duration(milliseconds: 500),
+                        duration: const Duration(milliseconds: 500),
                         child: Text(
                           item.title,
-                          style: TextStyle(
-                            fontSize: 42,
+                          style: const TextStyle(
+                            fontSize: 20,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                           ),
                         ),
                       ),
-                      const SizedBox(height: 40),
+                      const SizedBox(height: 30),
                       FadeInDown(
-                        delay: Duration(milliseconds: 800),
-                        duration: Duration(milliseconds: 800),
+                        delay: const Duration(milliseconds: 800),
+                        duration: const Duration(milliseconds: 800),
                         child: Text(
                           item.description,
                           style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 15,
                             color: Colors.grey.shade400,
                           ),
                         ),
                       ),
-                      const SizedBox(height: 40),
+                      const SizedBox(height: 30),
                       FadeInLeft(
                         child: Align(
                           alignment: Alignment.bottomRight,
@@ -108,7 +116,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
                             ),
                             child: SizedBox(
                               height: 40,
-                              width: MediaQuery.of(context).size.width * 0.7,
+                              width: MediaQuery.of(context).size.width * 0.4,
                               child: Row(
                                 children: [
                                   Text(
@@ -120,13 +128,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
                                   ),
                                   const Spacer(),
                                   Container(
-                                    padding: EdgeInsets.all(8),
+                                    padding: const EdgeInsets.all(8),
                                     decoration: BoxDecoration(
                                       color: Colors.green.shade300,
                                       borderRadius: BorderRadius.circular(40),
                                     ),
                                     child: Icon(
-                                      Icons.arrow_back,
+                                      Icons.arrow_right,
                                       color: Colors.green.shade100,
                                     ),
                                   ),
@@ -136,7 +144,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
                           ),
                         ),
                       ),
-                      const SizedBox(height: 40),
                     ],
                   ),
                 ),
