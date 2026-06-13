@@ -10,6 +10,11 @@ final class Routes {
 }
 
 final GoRouter router = GoRouter(
+  initialLocation: Routes.onboarding,
+  debugLogDiagnostics: true,
+  errorBuilder: (context, state) => const Scaffold(
+    body: Center(child: Text('Página não encontrada!')),
+  ),
   routes: <RouteBase>[
     GoRoute(
       path: Routes.home,
