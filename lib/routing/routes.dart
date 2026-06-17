@@ -46,7 +46,12 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: Routes.verification,
       builder: (BuildContext context, GoRouterState state) {
-        return const VerificationScreen();
+        final extra = state.extra as Map<String, dynamic>?;
+        return VerificationScreen(
+          email: extra?['email'] as String?,
+          otpId: extra?['otpId'] as String?,
+          userId: extra?['userId'] as String?,
+        );
       },
     ),
     GoRoute(
@@ -60,6 +65,6 @@ final GoRouter router = GoRouter(
       builder: (BuildContext context, GoRouterState state) {
         return const ForgotPasswordScreen();
       },
-    )
+    ),
   ],
 );

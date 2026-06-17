@@ -10,17 +10,25 @@ class ForgotPasswordScreen extends StatefulWidget {
 }
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
-  final _controller = TextEditingController();
+  late final ForgetPasswordScreenViewModel _viewModel;
+
+  @override
+  void initState() {
+    super.initState();
+    _viewModel = ForgetPasswordScreenViewModel();
+  }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _viewModel.dispose();
     super.dispose();
   }
 
-  void _continue() {
-    if (_controller.text.trim().isEmpty) return;
-    context.go(Routes.resetPassword);
+  Future<void> _continue() async {
+    final success = await _viewModel.send();
+    if (success && mounted) {
+      context.go(Routes.resetPassword);
+    }
   }
 
   @override
@@ -34,7 +42,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           icon: const Icon(Icons.arrow_back, color: AppColors.text),
           onPressed: () => Navigator.pop(context),
         ),
-        title: const Text('Recuperar Senha', style: TextStyle(fontSize: 16, color: AppColors.text)),
+        title: const Text('Recuperar Senha',
+            style: TextStyle(fontSize: 16, color: AppColors.text)),
         centerTitle: true,
       ),
       body: Padding(
@@ -45,23 +54,49 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             const SizedBox(height: 20),
             Center(child: AuthIllustration(icon: Icons.lock_reset_outlined)),
             const SizedBox(height: 32),
-            const Text('Recuperar sua conta', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.text)),
+            const Text('Recuperar sua conta',
+                style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.text)),
             const SizedBox(height: 8),
-            const Text('Digite seu e-mail ou telefone para receber o código de verificação.', style: TextStyle(fontSize: 13, color: AppColors.textSecondary)),
+            const Text(
+                'Digite seu e-mail ou telefone para receber o código de verificação.',
+                style: TextStyle(fontSize: 13, color: AppColors.textSecondary)),
             const SizedBox(height: 28),
             TextField(
-              controller: _controller,
+              controller: _viewModel.emailController,
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
                 hintText: 'E-mail ou telefone',
-                prefixIcon: const Icon(Icons.contact_mail_outlined, color: AppColors.hint),
+                prefixIcon:
+                    const Icon(Icons.contact_mail_outlined, color: AppColors.hint),
                 filled: true,
                 fillColor: AppColors.surface,
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: AppColors.inputBorder)),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(color: AppColors.inputBorder)),
               ),
             ),
+            if (_viewModel.errorMessage != null)
+              Padding(
+                padding: const EdgeInsets.only(top: 8),
+                child: Text(
+                  _viewModel.errorMessage!,
+                  style: const TextStyle(color: AppColors.error, fontSize: 13),
+                ),
+              ),
             const Spacer(),
-            PrimaryButton(label: 'Continuar', onPressed: _continue),
+            ListenableBuilder(
+              listenable: _viewModel,
+              builder: (context, _) {
+                return PrimaryButton(
+                  label: 'Continuar',
+                  isLoading: _viewModel.isLoading,
+                  onPressed: _viewModel.isLoading ? null : _continue,
+                );
+              },
+            ),
             const SizedBox(height: 40),
           ],
         ),
