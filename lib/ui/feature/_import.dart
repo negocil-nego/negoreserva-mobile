@@ -2,6 +2,8 @@ export 'forgot_password/_import.dart';
 export 'home/_import.dart';
 export 'login/_import.dart';
 export 'onboarding/_import.dart';
+export 'organization/_import.dart';
+export 'product/_import.dart';
 export 'register/_import.dart';
 export 'reset_password/_import.dart';
 export 'verification/_import.dart';
