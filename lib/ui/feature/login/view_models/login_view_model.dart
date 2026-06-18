@@ -24,6 +24,9 @@ class LoginViewModel extends ChangeNotifier {
       );
       final response = await _service.login(request);
       _isLoading = false;
+      if (response.token.isNotEmpty) {
+        SessionManager.login(response.token, request.username, 'Usuário NegoReserva');
+      }
       notifyListeners();
       return response.token.isNotEmpty;
     } on GqlException catch (e) {
