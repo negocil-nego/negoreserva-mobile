@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile/_import.dart';
 
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+class UserProfilePage extends StatefulWidget {
+  const UserProfilePage({super.key});
 
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
+  State<UserProfilePage> createState() => _UserProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
-  late final ProfileViewModel _viewModel;
+class _UserProfilePageState extends State<UserProfilePage> {
+  late final UserProfileViewModel _viewModel;
 
   @override
   void initState() {
     super.initState();
-    _viewModel = ProfileViewModel();
+    _viewModel = UserProfileViewModel();
   }
 
   @override
@@ -31,7 +31,8 @@ class _ProfilePageState extends State<ProfilePage> {
       builder: (context, _) {
         final isAuth = _viewModel.isAuthenticated;
         final name = _viewModel.userName ?? 'Utilizador Visitante';
-        final email = _viewModel.userEmail ?? 'Entre na sua conta para mais recursos';
+        final email =
+            _viewModel.userEmail ?? 'Entre na sua conta para mais recursos';
 
         return Scaffold(
           backgroundColor: AppColors.background,
@@ -57,7 +58,9 @@ class _ProfilePageState extends State<ProfilePage> {
                           radius: 30,
                           backgroundColor: AppColors.primary,
                           child: Text(
-                            name.isNotEmpty ? name.substring(0, 1).toUpperCase() : 'U',
+                            name.isNotEmpty
+                                ? name.substring(0, 1).toUpperCase()
+                                : 'U',
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 24,
@@ -116,21 +119,30 @@ class _ProfilePageState extends State<ProfilePage> {
                       children: [
                         if (isAuth) ...[
                           ListTile(
-                            leading: const Icon(Icons.person_outline, color: AppColors.primary),
+                            leading: const Icon(
+                              Icons.person_outline,
+                              color: AppColors.primary,
+                            ),
                             title: const Text('Gerir perfil'),
                             trailing: const Icon(Icons.chevron_right, size: 20),
                             onTap: () {},
                           ),
                           const Divider(height: 1),
                           ListTile(
-                            leading: const Icon(Icons.lock_outline, color: AppColors.primary),
+                            leading: const Icon(
+                              Icons.lock_outline,
+                              color: AppColors.primary,
+                            ),
                             title: const Text('Alterar a senha'),
                             trailing: const Icon(Icons.chevron_right, size: 20),
                             onTap: () {},
                           ),
                           const Divider(height: 1),
                           ListTile(
-                            leading: const Icon(Icons.payment_outlined, color: AppColors.primary),
+                            leading: const Icon(
+                              Icons.payment_outlined,
+                              color: AppColors.primary,
+                            ),
                             title: const Text('Pagamentos'),
                             trailing: const Icon(Icons.chevron_right, size: 20),
                             onTap: () {},
@@ -138,14 +150,20 @@ class _ProfilePageState extends State<ProfilePage> {
                           const Divider(height: 1),
                         ],
                         ListTile(
-                          leading: const Icon(Icons.privacy_tip_outlined, color: AppColors.primary),
+                          leading: const Icon(
+                            Icons.privacy_tip_outlined,
+                            color: AppColors.primary,
+                          ),
                           title: const Text('Política de privacidade'),
                           trailing: const Icon(Icons.chevron_right, size: 20),
                           onTap: () {},
                         ),
                         const Divider(height: 1),
                         ListTile(
-                          leading: const Icon(Icons.description_outlined, color: AppColors.primary),
+                          leading: const Icon(
+                            Icons.description_outlined,
+                            color: AppColors.primary,
+                          ),
                           title: const Text('Termos e condições'),
                           trailing: const Icon(Icons.chevron_right, size: 20),
                           onTap: () {},

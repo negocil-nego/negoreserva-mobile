@@ -46,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
           HomeTabContent(),
           OrganizationSearchPage(),
           ProductSearchPage(),
-          ProfilePage(),
+          UserProfilePage(),
         ],
       ),
       bottomNavigationBar: NavigationBar(

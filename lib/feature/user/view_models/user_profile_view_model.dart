@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/_import.dart';
 
-class ProfileViewModel extends ChangeNotifier {
-  ProfileViewModel() {
+class UserProfileViewModel extends ChangeNotifier {
+  UserProfileViewModel() {
     SessionManager.loginStateNotifier.addListener(_onLoginStateChanged);
   }
 
